@@ -6,6 +6,7 @@ PROMPT_TEMPLATE = """
     Your task is to extract key–value pairs ONLY from the user's input.
 
     Rules:
+    
     - Do NOT infer or assume missing information.
     - Do NOT add attributes that are not explicitly mentioned.
     - If something is not mentioned, do not include it.
