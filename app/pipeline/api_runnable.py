@@ -1,10 +1,17 @@
 from langchain_core.runnables import RunnableLambda
 from app.agent.agent import create_agent
-from app.agent.prompt import PROMPT_TEMPLATE, NORMALIZE_PROMPT_TEMPLATE
+from app.pipeline.retry_controller import run_with_retry
 
-def run_api(extract_agent, normalize_agent):
-    def pipeline(input:str):
-        extracted = extract_agent.invoke(input)
+def run_api(extract_agent, normalize_agent, self_correction_agent):
+    def pipeline(input:dict):
+        text = input["input"]
+
+        extracted = run_with_retry(
+            extract_agent,
+            self_correction_agent,
+            text
+        )
+
         print("Got extracted pairs :", extracted.model_dump())
 
         if extracted.attributes:

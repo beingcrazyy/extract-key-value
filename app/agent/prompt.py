@@ -6,7 +6,7 @@ PROMPT_TEMPLATE = """
     Your task is to extract key–value pairs ONLY from the user's input.
 
     Rules:
-    
+
     - Do NOT infer or assume missing information.
     - Do NOT add attributes that are not explicitly mentioned.
     - If something is not mentioned, do not include it.
@@ -76,3 +76,26 @@ NORMALIZE_PROMPT_TEMPLATE = """
 
     {format_instructions}
 """
+
+
+SELF_CORRECT_PROMPT = """
+    The previous output was INVALID.
+
+    Error:
+    {error}
+
+    Your task:
+    - Fix the output so it strictly follows the required schema.
+    - Do NOT add new information.
+    - Do NOT remove valid information.
+    - Return ONLY valid JSON.
+
+    Original user input:
+    {input}
+
+    Invalid output:
+    {output}
+
+    {format_instructions}
+"""
+
